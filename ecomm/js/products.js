@@ -2,116 +2,101 @@
 // To use real photos, add an `image: "images/your-photo.jpg"` field to any product.
 
 const CATEGORIES = [
-  { id: "footwear", name: "Footwear", tint: "#FDE7D9" },
-  { id: "watches", name: "Watches", tint: "#DCEFE7" },
-  { id: "audio", name: "Audio", tint: "#E3E5F8" },
-  { id: "bags", name: "Bags", tint: "#F6E6CF" },
-  { id: "apparel", name: "Apparel", tint: "#F3DDE3" },
-  { id: "home", name: "Home", tint: "#E1ECF2" },
+  { id: "immunity", name: "Immunity", tint: "#F3EBD3" },
+  { id: "digestion", name: "Digestion", tint: "#E4EEDC" },
+  { id: "stress", name: "Stress & Sleep", tint: "#E6E3F1" },
+  { id: "skin-hair", name: "Skin & Hair", tint: "#F4E1DA" },
+  { id: "women", name: "Women's Wellness", tint: "#F3DFE6" },
+  { id: "pain", name: "Joint & Pain", tint: "#DDEAEC" },
 ];
 
-// Simple illustration per product type; `c` is the product colour.
+const leaf = (x, y, s = 1) =>
+  `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0c10-14 28-16 38-12-4 16-20 26-38 12Z" fill="#4d7c0f"/><path d="M2 -1c10-4 22-8 32-10" stroke="#ecfccb" stroke-width="2" fill="none"/></g>`;
+
+const fit = (text, width) => Math.min(13, Math.floor(width / (0.62 * text.length)));
+
+const label = (y, h, c, text) => `
+  <rect x="78" y="${y}" width="84" height="${h}" rx="6" fill="#fffaf0"/>
+  <rect x="78" y="${y}" width="84" height="8" rx="3" fill="${c}"/>
+  <text x="120" y="${y + h / 2 + 8}" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="${fit(text, 78)}" font-weight="700" fill="#3b2f1e">${text}</text>
+  <path d="M100 ${y + h - 12}h40" stroke="${c}" stroke-width="2"/>`;
+
+// Simple illustration per pack type; `c` is the brand colour, `t` the short label text.
 const ART = {
-  sneaker: (c) => `
-    <path d="M30 128c0-14 8-22 20-24l26-4 18-26c4-6 12-6 16-1l14 18c10 12 30 18 50 20l12 2c10 2 16 10 16 20v8H30Z" fill="${c}"/>
-    <path d="M30 136h172v10c0 4-4 8-8 8H38c-4 0-8-4-8-8Z" fill="#fff" stroke="#1f2937" stroke-width="3"/>
-    <path d="M96 84l10 10M104 76l10 10M88 94l10 10" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
-    <path d="M130 116c18 6 40 8 60 8" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".7"/>`,
-  boot: (c) => `
-    <path d="M70 40h50v70c0 8 6 14 14 16l44 10c10 2 16 10 16 20v4H60V52c0-6 4-12 10-12Z" fill="${c}"/>
-    <path d="M60 160h134v8c0 4-4 8-8 8H68c-4 0-8-4-8-8Z" fill="#3f2a1d"/>
-    <path d="M70 60h50M70 76h50" stroke="#00000033" stroke-width="4"/>`,
-  watch: (c) => `
-    <rect x="96" y="20" width="48" height="50" rx="10" fill="${c}"/>
-    <rect x="96" y="150" width="48" height="50" rx="10" fill="${c}"/>
-    <circle cx="120" cy="110" r="52" fill="#1f2937"/>
-    <circle cx="120" cy="110" r="44" fill="#fff"/>
-    <path d="M120 110V80M120 110l20 12" stroke="#1f2937" stroke-width="5" stroke-linecap="round"/>
-    <circle cx="120" cy="110" r="5" fill="${c}"/>
-    <rect x="170" y="102" width="10" height="16" rx="3" fill="#1f2937"/>`,
-  smartwatch: (c) => `
-    <rect x="98" y="18" width="44" height="52" rx="10" fill="${c}"/>
-    <rect x="98" y="150" width="44" height="52" rx="10" fill="${c}"/>
-    <rect x="72" y="58" width="96" height="104" rx="26" fill="#111827"/>
-    <rect x="82" y="68" width="76" height="84" rx="18" fill="#0f766e"/>
-    <path d="M94 112h14l8-16 10 30 8-14h14" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,
-  headphones: (c) => `
-    <path d="M56 130V108a64 64 0 0 1 128 0v22" stroke="${c}" stroke-width="14" fill="none" stroke-linecap="round"/>
-    <rect x="40" y="118" width="40" height="64" rx="16" fill="${c}"/>
-    <rect x="160" y="118" width="40" height="64" rx="16" fill="${c}"/>
-    <rect x="52" y="128" width="20" height="44" rx="8" fill="#00000030"/>
-    <rect x="168" y="128" width="20" height="44" rx="8" fill="#00000030"/>`,
-  earbuds: (c) => `
-    <rect x="62" y="96" width="116" height="80" rx="38" fill="#fff" stroke="#d1d5db" stroke-width="3"/>
-    <path d="M62 128h116" stroke="#d1d5db" stroke-width="3"/>
-    <circle cx="96" cy="70" r="20" fill="${c}"/><rect x="90" y="70" width="12" height="40" rx="6" fill="${c}"/>
-    <circle cx="144" cy="70" r="20" fill="${c}"/><rect x="138" y="70" width="12" height="40" rx="6" fill="${c}"/>
-    <circle cx="120" cy="150" r="4" fill="#10b981"/>`,
-  speaker: (c) => `
-    <rect x="70" y="30" width="100" height="160" rx="24" fill="${c}"/>
-    <circle cx="120" cy="80" r="22" fill="#00000035"/><circle cx="120" cy="80" r="8" fill="#ffffff55"/>
-    <circle cx="120" cy="140" r="34" fill="#00000035"/><circle cx="120" cy="140" r="12" fill="#ffffff55"/>`,
-  backpack: (c) => `
-    <path d="M96 50a24 24 0 0 1 48 0" stroke="#1f2937" stroke-width="8" fill="none"/>
-    <rect x="66" y="50" width="108" height="140" rx="30" fill="${c}"/>
-    <rect x="84" y="120" width="72" height="50" rx="12" fill="#00000025"/>
-    <path d="M84 138h72" stroke="#ffffff70" stroke-width="3"/>
-    <rect x="112" y="78" width="16" height="6" rx="3" fill="#ffffff90"/>`,
-  tote: (c) => `
-    <path d="M92 80V64a28 28 0 0 1 56 0v16" stroke="#3f2a1d" stroke-width="8" fill="none"/>
-    <path d="M58 80h124l-10 110H68Z" fill="${c}"/>
-    <path d="M70 100h100" stroke="#00000020" stroke-width="4"/>`,
-  tshirt: (c) => `
-    <path d="M90 36c6 12 18 18 30 18s24-6 30-18l44 22-16 34-20-8v104H82V84l-20 8-16-34Z" fill="${c}"/>
-    <path d="M100 38c4 10 12 14 20 14s16-4 20-14" stroke="#00000030" stroke-width="4" fill="none"/>`,
-  hoodie: (c) => `
-    <path d="M86 50c0-20 16-30 34-30s34 10 34 30l40 20-14 40-18-8v96H78v-96l-18 8-14-40Z" fill="${c}"/>
-    <path d="M98 50c4 14 12 20 22 20s18-6 22-20" fill="#00000025"/>
-    <rect x="94" y="140" width="52" height="30" rx="8" fill="#00000020"/>
-    <path d="M112 72v26M128 72v26" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`,
-  sunglasses: (c) => `
-    <path d="M30 96h180" stroke="#1f2937" stroke-width="6" stroke-linecap="round"/>
-    <path d="M40 96h66v18c0 18-12 30-32 30s-34-12-34-30Z" fill="${c}"/>
-    <path d="M134 96h66v18c0 18-14 30-34 30s-32-12-32-30Z" fill="${c}"/>
-    <path d="M54 108l18-6M148 108l18-6" stroke="#ffffff80" stroke-width="4" stroke-linecap="round"/>`,
-  mug: (c) => `
-    <path d="M160 92h12a22 22 0 0 1 0 44h-12" stroke="${c}" stroke-width="12" fill="none"/>
-    <path d="M60 70h104v96a20 20 0 0 1-20 20H80a20 20 0 0 1-20-20Z" fill="${c}"/>
-    <path d="M92 40c-6 8 6 12 0 20M114 36c-6 8 6 12 0 20M136 40c-6 8 6 12 0 20" stroke="#94a3b8" stroke-width="4" fill="none" stroke-linecap="round"/>`,
-  lamp: (c) => `
-    <path d="M84 40h72l24 70H60Z" fill="${c}"/>
-    <rect x="114" y="110" width="12" height="64" fill="#1f2937"/>
-    <rect x="82" y="174" width="76" height="14" rx="7" fill="#1f2937"/>
-    <ellipse cx="120" cy="112" rx="40" ry="6" fill="#fde68a"/>`,
-  plant: (c) => `
-    <path d="M120 120c-30-10-44-40-36-70 26 6 40 34 36 70Z" fill="#16a34a"/>
-    <path d="M120 120c26-14 50-8 64 12-24 14-50 8-64-12Z" fill="#22c55e"/>
-    <path d="M120 120c-20-6-44 2-56 20 20 10 44 4 56-20Z" fill="#15803d"/>
-    <path d="M78 124h84l-10 66H88Z" fill="${c}"/>`,
+  capsules: (c, t) => `
+    <rect x="96" y="34" width="48" height="22" rx="5" fill="#3b2f1e"/>
+    <rect x="72" y="52" width="96" height="140" rx="18" fill="${c}"/>
+    ${label(84, 70, c, t)}
+    <g transform="translate(176 170) rotate(-30)"><rect width="34" height="14" rx="7" fill="#fbbf24"/><rect width="17" height="14" rx="7" fill="#b45309"/></g>
+    ${leaf(30, 182, .8)}`,
+  jar: (c, t) => `
+    <rect x="64" y="48" width="112" height="26" rx="8" fill="#3b2f1e"/>
+    <path d="M60 74h120v100a20 20 0 0 1-20 20H80a20 20 0 0 1-20-20Z" fill="${c}"/>
+    ${label(96, 70, c, t)}
+    ${leaf(176, 186, .9)}`,
+  syrup: (c, t) => `
+    <rect x="106" y="20" width="28" height="22" rx="4" fill="#3b2f1e"/>
+    <path d="M108 42h24v20c18 8 30 22 30 40v84a10 10 0 0 1-10 10H88a10 10 0 0 1-10-10v-84c0-18 12-32 30-40Z" fill="${c}"/>
+    ${label(110, 64, c, t)}
+    ${leaf(28, 180, .8)}`,
+  dropper: (c, t) => `
+    <path d="M110 18a10 10 0 0 1 20 0v30h-20Z" fill="#1f2937"/>
+    <rect x="102" y="46" width="36" height="20" rx="4" fill="#a16207"/>
+    <rect x="84" y="66" width="72" height="126" rx="14" fill="${c}"/>
+    <rect x="84" y="96" width="72" height="62" fill="#fffaf0"/>
+    <text x="120" y="133" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="${fit(t, 66)}" font-weight="700" fill="#3b2f1e">${t}</text>
+    ${leaf(160, 180, .9)}`,
+  oil: (c, t) => `
+    <rect x="108" y="22" width="24" height="26" rx="4" fill="#a16207"/>
+    <path d="M110 48h20v14l26 22v100a12 12 0 0 1-12 12H96a12 12 0 0 1-12-12V84l26-22Z" fill="${c}"/>
+    ${label(110, 64, c, t)}
+    <path d="M196 132c-10 14-10 24 0 30 10-6 10-16 0-30Z" fill="#facc15"/>
+    ${leaf(26, 186, .8)}`,
+  pouch: (c, t) => `
+    <path d="M70 46h100l10 146H60Z" fill="${c}"/>
+    <path d="M70 46h100v14H70Z" fill="#00000030"/>
+    ${label(92, 72, c, t)}
+    <ellipse cx="190" cy="190" rx="22" ry="8" fill="#d97706"/><path d="M170 190c6-12 34-12 40 0" fill="#f59e0b"/>
+    ${leaf(28, 186, .8)}`,
 };
 
 const PRODUCTS = [
-  { id: 1, name: "AirFlow Runner Sneakers", cat: "footwear", art: "sneaker", color: "#EA580C", price: 2499, mrp: 3999, rating: 4.6, reviews: 1284, tag: "Bestseller", desc: "Lightweight knit upper with responsive foam cushioning. Built for daily runs and long city walks." },
-  { id: 2, name: "Trailhead Leather Boots", cat: "footwear", art: "boot", color: "#92400E", price: 3999, mrp: 5499, rating: 4.4, reviews: 412, desc: "Full-grain leather with a grippy rubber sole. Water-resistant and ready for monsoon." },
-  { id: 3, name: "Court Classic Sneakers", cat: "footwear", art: "sneaker", color: "#1D4ED8", price: 1899, mrp: 2499, rating: 4.3, reviews: 860, desc: "Retro low-top silhouette with padded collar and cushioned insole." },
-  { id: 4, name: "Heritage Analog Watch", cat: "watches", art: "watch", color: "#B45309", price: 3299, mrp: 4999, rating: 4.7, reviews: 932, tag: "New", desc: "Minimal 40mm dial, sapphire-coated glass and a genuine leather strap. 3 ATM water resistance." },
-  { id: 5, name: "Pulse Fit Smartwatch", cat: "watches", art: "smartwatch", color: "#0F766E", price: 4499, mrp: 6999, rating: 4.5, reviews: 2210, tag: "Bestseller", desc: "AMOLED display, heart-rate and SpO2 tracking, 10-day battery and Bluetooth calling." },
-  { id: 6, name: "Steel Chrono Watch", cat: "watches", art: "watch", color: "#475569", price: 5799, mrp: 7999, rating: 4.6, reviews: 318, desc: "Stainless steel chronograph with luminous hands and a fold-over clasp." },
-  { id: 7, name: "Studio Pro Headphones", cat: "audio", art: "headphones", color: "#111827", price: 5999, mrp: 8999, rating: 4.8, reviews: 1745, tag: "Top rated", desc: "Active noise cancellation, 40-hour battery and plush memory-foam ear cushions." },
-  { id: 8, name: "Buds Lite True Wireless", cat: "audio", art: "earbuds", color: "#7C3AED", price: 1499, mrp: 2999, rating: 4.2, reviews: 3120, desc: "Punchy bass, low-latency gaming mode and 30 hours of playback with the case." },
-  { id: 9, name: "Boom Mini Speaker", cat: "audio", art: "speaker", color: "#DC2626", price: 2199, mrp: 3499, rating: 4.4, reviews: 690, desc: "IPX7 waterproof Bluetooth speaker with 360° sound and 12-hour battery." },
-  { id: 10, name: "Commuter Laptop Backpack", cat: "bags", art: "backpack", color: "#065F46", price: 1799, mrp: 2799, rating: 4.5, reviews: 1033, tag: "Bestseller", desc: "Fits 15.6\" laptops, water-repellent fabric, hidden anti-theft pocket and USB port." },
-  { id: 11, name: "Canvas Market Tote", cat: "bags", art: "tote", color: "#D97706", price: 699, mrp: 999, rating: 4.3, reviews: 421, desc: "Heavy-duty cotton canvas with leather handles. Folds flat for travel." },
-  { id: 12, name: "Everyday Cotton Tee", cat: "apparel", art: "tshirt", color: "#2563EB", price: 499, mrp: 799, rating: 4.2, reviews: 2580, desc: "100% combed cotton, pre-shrunk, regular fit. Available in S to XXL." },
-  { id: 13, name: "Cloud Fleece Hoodie", cat: "apparel", art: "hoodie", color: "#BE185D", price: 1599, mrp: 2299, rating: 4.6, reviews: 744, tag: "New", desc: "Brushed fleece interior, kangaroo pocket and ribbed cuffs. Cozy without the bulk." },
-  { id: 14, name: "Aviator Polarised Shades", cat: "apparel", art: "sunglasses", color: "#0E7490", price: 1299, mrp: 1999, rating: 4.4, reviews: 512, desc: "UV400 polarised lenses in a lightweight metal frame. Includes hard case." },
-  { id: 15, name: "Stoneware Coffee Mug", cat: "home", art: "mug", color: "#0F766E", price: 399, mrp: 599, rating: 4.7, reviews: 980, desc: "Hand-glazed 350ml stoneware. Microwave and dishwasher safe." },
-  { id: 16, name: "Nordic Table Lamp", cat: "home", art: "lamp", color: "#F59E0B", price: 1899, mrp: 2999, rating: 4.5, reviews: 287, desc: "Warm ambient light with a linen-finish shade and solid wood base." },
-  { id: 17, name: "Ceramic Planter Set", cat: "home", art: "plant", color: "#E7E5E4", price: 899, mrp: 1399, rating: 4.4, reviews: 356, desc: "Set of two matte ceramic planters with drainage trays. Plants not included." },
+  { id: 1, name: "Ashwagandha Capsules", cat: "stress", art: "capsules", color: "#7C5A2E", label: "Ashwagandha", size: "60 capsules", price: 449, mrp: 599, rating: 4.7, reviews: 2140, tag: "Bestseller",
+    desc: "KSM-66 root extract traditionally used to support calm, restful sleep and everyday energy.", ingredients: "Ashwagandha root extract (Withania somnifera) 500 mg", usage: "1 capsule twice daily after meals with warm milk or water." },
+  { id: 2, name: "Triphala Churna", cat: "digestion", art: "pouch", color: "#6B7F2A", label: "Triphala", size: "200 g", price: 199, mrp: 260, rating: 4.6, reviews: 1612, tag: "Bestseller",
+    desc: "Classic blend of amla, haritaki and bibhitaki for gentle digestive support and regularity.", ingredients: "Amalaki, Haritaki, Bibhitaki in equal parts", usage: "1 teaspoon with warm water at bedtime." },
+  { id: 3, name: "Chyawanprash Special", cat: "immunity", art: "jar", color: "#7F1D1D", label: "Chyawanprash", size: "500 g", price: 349, mrp: 425, rating: 4.8, reviews: 3380, tag: "Top rated",
+    desc: "Amla-rich herbal jam with 40+ herbs, prepared in pure ghee and honey to the classical recipe.", ingredients: "Amla, Ashwagandha, Pippali, Giloy, Shatavari, ghee, honey and 35+ herbs", usage: "1–2 teaspoons daily with warm milk. Children: half the dose." },
+  { id: 4, name: "Giloy Ghanvati Tablets", cat: "immunity", art: "capsules", color: "#3F6212", label: "Giloy", size: "60 tablets", price: 179, mrp: 230, rating: 4.5, reviews: 1290,
+    desc: "Concentrated guduchi stem extract, a traditional rasayana for seasonal wellness.", ingredients: "Giloy stem extract (Tinospora cordifolia) 500 mg", usage: "1–2 tablets twice daily after meals." },
+  { id: 5, name: "Tulsi Drops", cat: "immunity", art: "dropper", color: "#166534", label: "Tulsi", size: "30 ml", price: 149, mrp: 199, rating: 4.4, reviews: 870,
+    desc: "Panch tulsi extract from five holy basil varieties. Add a few drops to tea or warm water.", ingredients: "Rama, Shyama, Vana, Kapoor and Marua tulsi extracts", usage: "2–3 drops in a cup of warm water or tea, twice daily." },
+  { id: 6, name: "Brahmi Syrup", cat: "stress", art: "syrup", color: "#365314", label: "Brahmi", size: "200 ml", price: 229, mrp: 295, rating: 4.5, reviews: 640,
+    desc: "Brahmi and shankhpushpi tonic traditionally used to support focus, memory and a calm mind.", ingredients: "Brahmi, Shankhpushpi, Jatamansi, Vacha", usage: "2 teaspoons twice daily after meals." },
+  { id: 7, name: "Kumkumadi Tailam", cat: "skin-hair", art: "dropper", color: "#B45309", label: "Kumkumadi", size: "15 ml", price: 599, mrp: 799, rating: 4.6, reviews: 1105, tag: "New",
+    desc: "Saffron-infused face oil from the Ashtanga Hridayam for an even, radiant complexion.", ingredients: "Kesar (saffron), Manjistha, Chandan, Lotus in sesame oil", usage: "2–3 drops on clean skin at night; massage gently." },
+  { id: 8, name: "Bhringraj Hair Oil", cat: "skin-hair", art: "oil", color: "#1E3A2B", label: "Bhringraj", size: "200 ml", price: 299, mrp: 399, rating: 4.5, reviews: 1820,
+    desc: "Bhringraj, amla and brahmi slow-cooked in coconut and sesame oil for nourished, strong hair.", ingredients: "Bhringraj, Amla, Brahmi, Neem in coconut & sesame oil", usage: "Warm slightly, massage into scalp, leave 1 hour or overnight, then wash." },
+  { id: 9, name: "Neem Capsules", cat: "skin-hair", art: "capsules", color: "#4D7C0F", label: "Neem", size: "60 capsules", price: 189, mrp: 240, rating: 4.3, reviews: 510,
+    desc: "Neem leaf extract traditionally used to support clear skin from within.", ingredients: "Neem leaf extract (Azadirachta indica) 500 mg", usage: "1 capsule twice daily after meals." },
+  { id: 10, name: "Shatavari Powder", cat: "women", art: "pouch", color: "#9D174D", label: "Shatavari", size: "100 g", price: 249, mrp: 320, rating: 4.6, reviews: 760,
+    desc: "Shatavari root, the classical rasayana for women's vitality and hormonal balance.", ingredients: "Shatavari root powder (Asparagus racemosus)", usage: "½ teaspoon with warm milk twice daily." },
+  { id: 11, name: "Ashokarishta", cat: "women", art: "syrup", color: "#831843", label: "Ashokarishta", size: "450 ml", price: 189, mrp: 235, rating: 4.4, reviews: 430,
+    desc: "Traditional fermented herbal tonic made with ashoka bark to support menstrual wellness.", ingredients: "Ashoka bark, Dhataki, Musta, Haritaki and more", usage: "15–30 ml with equal water after meals, or as directed by your vaidya." },
+  { id: 12, name: "Amla Juice", cat: "immunity", art: "syrup", color: "#65A30D", label: "Amla", size: "1 L", price: 199, mrp: 250, rating: 4.4, reviews: 990,
+    desc: "Cold-pressed Indian gooseberry juice, naturally rich in vitamin C. No added sugar.", ingredients: "Amla (Emblica officinalis) juice", usage: "20–30 ml with a glass of water, empty stomach in the morning." },
+  { id: 13, name: "Hingvastak Churna", cat: "digestion", art: "pouch", color: "#A16207", label: "Hingvastak", size: "100 g", price: 149, mrp: 185, rating: 4.5, reviews: 380,
+    desc: "Hing, ajwain and trikatu blend traditionally taken to ease gas and bloating after meals.", ingredients: "Hing, Ajwain, Saunth, Kali mirch, Pippali, Jeera, Saindhav namak", usage: "½ teaspoon with the first morsel of food or with buttermilk." },
+  { id: 14, name: "Mahanarayan Oil", cat: "pain", art: "oil", color: "#92400E", label: "Mahanarayan", size: "100 ml", price: 249, mrp: 310, rating: 4.7, reviews: 1430, tag: "Bestseller",
+    desc: "Classical massage oil with 50+ herbs, traditionally used for stiff joints and tired muscles.", ingredients: "Bala, Ashwagandha, Shatavari, Dashmool and 50+ herbs in sesame oil", usage: "Warm and massage on the affected area 2–3 times daily. External use only." },
+  { id: 15, name: "Yograj Guggulu", cat: "pain", art: "capsules", color: "#57534E", label: "Guggulu", size: "80 tablets", price: 219, mrp: 275, rating: 4.4, reviews: 520,
+    desc: "Guggulu-based classical formulation traditionally used to support joint comfort and mobility.", ingredients: "Shuddha Guggulu, Chitrak, Pippali, Triphala and more", usage: "2 tablets twice daily with warm water, or as directed by your vaidya." },
+  { id: 16, name: "Haldi Gold Capsules", cat: "pain", art: "capsules", color: "#CA8A04", label: "Haldi", size: "60 capsules", price: 329, mrp: 420, rating: 4.5, reviews: 690, tag: "New",
+    desc: "High-curcumin turmeric with black pepper extract for better absorption.", ingredients: "Turmeric extract (95% curcuminoids), Piperine", usage: "1 capsule daily after a meal." },
 ];
 
 function productArt(p, extraClass = "") {
   if (p.image) return `<img class="art ${extraClass}" src="${p.image}" alt="${p.name}" loading="lazy">`;
   const tint = CATEGORIES.find((c) => c.id === p.cat).tint;
-  return `<svg class="art ${extraClass}" viewBox="0 0 240 220" role="img" aria-label="${p.name}" style="background:${tint}">${ART[p.art](p.color)}</svg>`;
+  return `<svg class="art ${extraClass}" viewBox="0 0 240 220" role="img" aria-label="${p.name}" style="background:${tint}">${ART[p.art](p.color, p.label)}</svg>`;
 }

@@ -3,105 +3,117 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kartify — Everyday Essentials</title>
-  <meta name="description" content="Kartify: shoes, watches, audio, bags and home essentials delivered across India.">
+  <title>Prakriti Ayurveda — Authentic Ayurvedic Medicines Online</title>
+  <meta name="description" content="Shop authentic Ayurvedic medicines, churnas, oils and rasayanas. Classical recipes, carefully sourced herbs, delivered across India.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-  <a class="skip-link" href="#shop">Skip to products</a>
+<body data-page="home">
+  <div id="site-header"></div>
 
-  <div class="announce">Free delivery on orders above ₹999 · Use code <strong>WELCOME10</strong> for 10% off</div>
-
-  <header class="header">
-    <div class="container header__inner">
-      <a href="#" class="logo" aria-label="Kartify home">Kart<span>ify</span></a>
-
-      <form class="search" role="search" id="searchForm">
-        <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
-        <label for="searchInput" class="sr-only">Search products</label>
-        <input id="searchInput" type="search" placeholder="Search shoes, watches, bags…" autocomplete="off">
-      </form>
-
-      <nav class="header__actions" aria-label="Account and cart">
-        <button class="icon-btn" id="wishlistBtn" aria-label="Wishlist">
-          <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
-          <span class="badge" id="wishCount" hidden>0</span>
-        </button>
-        <button class="icon-btn" id="cartBtn" aria-label="Open cart">
-          <svg class="icon" aria-hidden="true"><use href="#i-bag"/></svg>
-          <span class="badge" id="cartCount" hidden>0</span>
-        </button>
-      </nav>
-    </div>
-  </header>
-
-  <main>
+  <main id="main">
     <section class="hero">
       <div class="container hero__inner">
         <div class="hero__copy">
-          <p class="eyebrow">New season · Festive edit</p>
-          <h1>Things you'll use <em>every single day.</em></h1>
-          <p class="lead">Handpicked footwear, watches, audio and home goods. Easy 7-day returns and cash on delivery across India.</p>
+          <p class="eyebrow">Rooted in 5,000 years of Ayurveda</p>
+          <h1>Nature's wisdom for <em>everyday wellness.</em></h1>
+          <p class="lead">Classical Ayurvedic formulations — churnas, rasayanas, oils and herbal tablets — prepared from carefully sourced herbs and delivered to your door.</p>
           <div class="hero__cta">
-            <a href="#shop" class="btn btn--accent">Shop the collection</a>
-            <a href="#categories" class="btn btn--ghost">Browse categories</a>
+            <a href="shop.html" class="btn btn--accent">Shop remedies</a>
+            <a href="contact.html" class="btn btn--ghost">Ask our vaidya</a>
           </div>
           <ul class="perks">
-            <li><svg class="icon" aria-hidden="true"><use href="#i-truck"/></svg>Free shipping ₹999+</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-return"/></svg>7-day returns</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>Secure checkout</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg>Pure herbal ingredients</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-flask"/></svg>Classical recipes</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-truck"/></svg>Free delivery ₹499+</li>
           </ul>
         </div>
         <div class="hero__art" aria-hidden="true" id="heroArt"></div>
       </div>
     </section>
 
-    <section class="section" id="categories">
+    <section class="section">
       <div class="container">
-        <h2 class="section__title">Shop by category</h2>
+        <div class="section__head">
+          <div>
+            <p class="eyebrow">Find your remedy</p>
+            <h2 class="section__title">Shop by health concern</h2>
+          </div>
+          <a href="shop.html" class="text-link">View all products →</a>
+        </div>
         <div class="cat-grid" id="catGrid"></div>
       </div>
     </section>
 
-    <section class="section section--muted" id="shop">
+    <section class="section section--tint">
       <div class="container">
-        <div class="shop__head">
+        <div class="section__head">
           <div>
-            <h2 class="section__title">All products</h2>
-            <p class="muted" id="resultInfo" aria-live="polite"></p>
+            <p class="eyebrow">Customer favourites</p>
+            <h2 class="section__title">Bestsellers</h2>
           </div>
-          <div class="shop__controls">
-            <label for="sortSelect" class="sr-only">Sort by</label>
-            <select id="sortSelect" class="select">
-              <option value="featured">Sort: Featured</option>
-              <option value="price-asc">Price: Low to high</option>
-              <option value="price-desc">Price: High to low</option>
-              <option value="rating">Top rated</option>
-            </select>
+          <a href="shop.html" class="text-link">Shop all →</a>
+        </div>
+        <div class="grid" id="featuredGrid"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container about">
+        <div class="about__copy">
+          <p class="eyebrow">Why Prakriti</p>
+          <h2 class="section__title">Ayurveda, the way it was meant to be</h2>
+          <p class="lead">Every formulation follows the classical texts — Charaka Samhita, Ashtanga Hridayam and Sharangdhar Samhita — and is made in small batches so the herbs keep their potency.</p>
+        </div>
+        <ul class="features">
+          <li>
+            <span class="features__icon"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg></span>
+            <h3>Sourced at origin</h3>
+            <p>Herbs collected from their native regions — ashwagandha from Madhya Pradesh, brahmi from Kerala.</p>
+          </li>
+          <li>
+            <span class="features__icon"><svg class="icon" aria-hidden="true"><use href="#i-flask"/></svg></span>
+            <h3>Tested every batch</h3>
+            <p>Each batch checked for heavy metals, microbial load and identity before it is packed.</p>
+          </li>
+          <li>
+            <span class="features__icon"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg></span>
+            <h3>Free vaidya advice</h3>
+            <p>Not sure what suits your prakriti? Talk to our Ayurvedic doctors on call or WhatsApp.</p>
+          </li>
+          <li>
+            <span class="features__icon"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg></span>
+            <h3>No harmful additives</h3>
+            <p>No artificial colours or synthetic preservatives. Clear labels with full ingredient lists.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section--tint">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow">Testimonials</p>
+            <h2 class="section__title">What our customers say</h2>
           </div>
+          <a href="testimonials.html" class="text-link">Read all reviews →</a>
         </div>
-        <div class="chips" id="filterChips" role="toolbar" aria-label="Filter by category"></div>
-        <div class="grid" id="productGrid"></div>
-        <div class="empty" id="emptyState" hidden>
-          <svg class="icon icon--xl" aria-hidden="true"><use href="#i-search"/></svg>
-          <p>No products match your search.</p>
-          <button class="btn btn--ghost" id="clearSearch">Clear filters</button>
-        </div>
+        <div class="review-grid" id="homeReviews"></div>
       </div>
     </section>
 
     <section class="section">
       <div class="container newsletter">
         <div>
-          <h2 class="section__title">Get ₹200 off your first order</h2>
-          <p class="muted">Join the list for early access to drops and sales. No spam.</p>
+          <h2 class="section__title">Seasonal wellness tips, monthly</h2>
+          <p class="muted">Ritucharya guides, herbal recipes and early access to offers. No spam.</p>
         </div>
         <form class="newsletter__form" id="newsForm" novalidate>
           <label for="newsEmail" class="sr-only">Email address</label>
-          <input id="newsEmail" type="email" placeholder="you@example.com" required>
+          <input id="newsEmail" type="email" placeholder="you@example.com" autocomplete="email">
           <button class="btn btn--primary" type="submit">Subscribe</button>
           <p class="field-msg" id="newsMsg" aria-live="polite"></p>
         </form>
@@ -109,128 +121,11 @@
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div>
-        <a href="#" class="logo logo--light">Kart<span>ify</span></a>
-        <p>Everyday essentials, delivered with care.</p>
-      </div>
-      <div>
-        <h3>Shop</h3>
-        <ul id="footerCats"></ul>
-      </div>
-      <div>
-        <h3>Help</h3>
-        <ul><li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li><li><a href="#">Contact us</a></li></ul>
-      </div>
-    </div>
-    <p class="container footer__copy">© <span id="year"></span> Kartify. Demo store — no real payments are processed.</p>
-  </footer>
-
-  <!-- Cart drawer -->
-  <div class="overlay" id="overlay" hidden></div>
-  <aside class="drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true" tabindex="-1">
-    <div class="drawer__head">
-      <h2>Your cart</h2>
-      <button class="icon-btn" data-close aria-label="Close cart"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
-    </div>
-    <div class="drawer__body" id="cartItems"></div>
-    <div class="drawer__foot" id="cartFoot">
-      <form class="coupon" id="couponForm">
-        <label for="couponInput" class="sr-only">Coupon code</label>
-        <input id="couponInput" placeholder="Coupon code">
-        <button class="btn btn--ghost btn--sm" type="submit">Apply</button>
-      </form>
-      <p class="field-msg" id="couponMsg" aria-live="polite"></p>
-      <dl class="totals" id="cartTotals"></dl>
-      <button class="btn btn--accent btn--block" id="checkoutBtn">Checkout</button>
-    </div>
-  </aside>
-
-  <!-- Wishlist drawer -->
-  <aside class="drawer" id="wishDrawer" aria-label="Wishlist" aria-hidden="true" tabindex="-1">
-    <div class="drawer__head">
-      <h2>Wishlist</h2>
-      <button class="icon-btn" data-close aria-label="Close wishlist"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
-    </div>
-    <div class="drawer__body" id="wishItems"></div>
-  </aside>
-
-  <!-- Product modal -->
-  <dialog class="modal" id="productModal" aria-labelledby="pmTitle">
-    <button class="icon-btn modal__close" data-close-modal aria-label="Close"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
-    <div class="pm" id="pmBody"></div>
-  </dialog>
-
-  <!-- Checkout modal -->
-  <dialog class="modal modal--narrow" id="checkoutModal" aria-labelledby="coTitle">
-    <button class="icon-btn modal__close" data-close-modal aria-label="Close"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
-    <form id="checkoutForm" novalidate>
-      <h2 id="coTitle">Checkout</h2>
-      <div class="field">
-        <label for="coName">Full name</label>
-        <input id="coName" name="name" autocomplete="name" required>
-        <p class="field-msg"></p>
-      </div>
-      <div class="field">
-        <label for="coPhone">Mobile number</label>
-        <input id="coPhone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit number" required pattern="[6-9][0-9]{9}">
-        <p class="field-msg"></p>
-      </div>
-      <div class="field">
-        <label for="coAddress">Delivery address</label>
-        <textarea id="coAddress" name="address" rows="3" autocomplete="street-address" required></textarea>
-        <p class="field-msg"></p>
-      </div>
-      <div class="field-row">
-        <div class="field">
-          <label for="coCity">City</label>
-          <input id="coCity" name="city" autocomplete="address-level2" required>
-          <p class="field-msg"></p>
-        </div>
-        <div class="field">
-          <label for="coPin">PIN code</label>
-          <input id="coPin" name="pin" inputmode="numeric" autocomplete="postal-code" required pattern="[1-9][0-9]{5}">
-          <p class="field-msg"></p>
-        </div>
-      </div>
-      <fieldset class="field">
-        <legend>Payment</legend>
-        <label class="radio"><input type="radio" name="pay" value="cod" checked> Cash on delivery</label>
-        <label class="radio"><input type="radio" name="pay" value="upi"> UPI (demo)</label>
-      </fieldset>
-      <dl class="totals" id="coTotals"></dl>
-      <button class="btn btn--accent btn--block" type="submit">Place order</button>
-    </form>
-    <div class="success" id="orderSuccess" hidden>
-      <svg class="icon icon--xl" aria-hidden="true"><use href="#i-check"/></svg>
-      <h2>Order placed!</h2>
-      <p id="orderMsg"></p>
-      <button class="btn btn--primary" data-close-modal>Continue shopping</button>
-    </div>
-  </dialog>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <!-- Icon sprite (Lucide-style) -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
-      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></symbol>
-      <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
-      <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
-      <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6H2v12h2"/><path d="M14 9h4l4 4v5h-2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M9 18h6"/></symbol>
-      <symbol id="i-return" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol>
-      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
-      <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></symbol>
-      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
-      <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
-      <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
-      <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></symbol>
-    </defs>
-  </svg>
+  <div id="site-footer"></div>
 
   <script src="js/products.js"></script>
+  <script src="js/testimonials.js"></script>
+  <script src="js/layout.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

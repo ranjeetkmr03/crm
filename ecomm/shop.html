@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop Ayurvedic Medicines — Prakriti Ayurveda</title>
+  <meta name="description" content="Browse Ayurvedic churnas, rasayanas, herbal tablets and oils by health concern.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="shop">
+  <div id="site-header"></div>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Shop</p>
+        <h1>Ayurvedic remedies</h1>
+        <p class="lead">Classical formulations for immunity, digestion, stress, skin, women's wellness and joint care.</p>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container">
+        <div class="shop__bar">
+          <div class="search search--lg">
+            <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+            <label for="shopSearch" class="sr-only">Search products</label>
+            <input id="shopSearch" type="search" placeholder="Search by name or ingredient…" autocomplete="off">
+          </div>
+          <label for="sortSelect" class="sr-only">Sort by</label>
+          <select id="sortSelect" class="select">
+            <option value="featured">Sort: Featured</option>
+            <option value="price-asc">Price: Low to high</option>
+            <option value="price-desc">Price: High to low</option>
+            <option value="rating">Top rated</option>
+          </select>
+        </div>
+        <div class="chips" id="filterChips" role="toolbar" aria-label="Filter by health concern"></div>
+        <p class="muted" id="resultInfo" aria-live="polite"></p>
+        <div class="grid" id="productGrid"></div>
+        <div class="empty" id="emptyState" hidden>
+          <svg class="icon icon--xl" aria-hidden="true"><use href="#i-search"/></svg>
+          <p>No products match your search.</p>
+          <button class="btn btn--ghost" id="clearSearch">Clear filters</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/products.js"></script>
+  <script src="js/testimonials.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
